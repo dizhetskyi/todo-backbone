@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todo backbone</title>
+
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<section id="todo-app" class="todoapp">
+    <header class="header">
+      <h1>todos</h1>
+      <input class="new-todo" placeholder="What needs to be done?" autofocus>
+    </header>
+    <section class="main" style="display: none;">
+      <input class="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list"></ul>
+    </section>
+    <footer class="footer" style="display: none;"></footer>
+  </section>
+
+	<script type="text/template" id="todo-item-template">
+		<div class="view">
+			<input class="toggle" type="checkbox" <%= done ? 'checked' : '' %>>
+			<label><%- title %></label>
+			<button class="destroy"></button>
+		</div>
+		<input class="edit" value="<%- title %>">
+	</script>
+	
+	<script type="text/template" id="footer-template">		
+    <span class="todo-count"><%= left %> left</span>
+    <ul class="filters">
+      <li>
+        <a href="#/" class="selected">All</a>
+      </li>
+      <li>
+        <a href="#/active">Active</a>
+      </li>
+      <li>
+        <a href="#/completed">Completed</a>
+      </li>
+    </ul>
+    <button class="clear-completed" style="display: <%= done ? 'block' : 'none' %>;">Clear completed</button>
+	</script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone-localstorage.js/1.1.16/backbone.localStorage.js"></script>
+
+	<script src="app.js"></script>
+
+</body>
+</html>
