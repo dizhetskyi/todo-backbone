@@ -9,14 +9,13 @@ define(['jquery', 'underscore', 'backbone', 'common', 'views/app', 'views/todoIt
 	    '*filter': 'applyFilter'
 	  },
 	  initialize: function(){
-	  	this.on('route', function(){	  		
-	  	})
 	  	$(window).on('hashchange', this.windowHashChangeHandler)
 	  },
 	  windowHashChangeHandler: function(){
 	  	Common.didRoute = true;
 	  },
 	  applyFilter: function(param){
+
 	    var param = param || '';
 
 	    Common.filterParam = param;   

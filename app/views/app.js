@@ -57,9 +57,6 @@ define([
 	    this.todos.each(function(item){
 	      item.trigger('filterOne');
 	    })
-	    this.$filterLinks.removeClass('selected')
-	      .filter('[href="#/'+(Common.filterParam || '') + '"]')
-	      .addClass('selected');
 	  },
 	  addOne: function(model){    
 	    var view = new TodoListItemView({model: model});
@@ -91,6 +88,10 @@ define([
 	    this.$toggleAllInput.prop('checked', !left);
 
 	    this.$filterLinks = this.$('.filters a');
+	    
+	    this.$filterLinks.removeClass('selected')
+	      .filter('[href="#/'+(Common.filterParam || '') + '"]')
+	      .addClass('selected');
 	    
 	  },
 
