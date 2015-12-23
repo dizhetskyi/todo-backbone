@@ -4,6 +4,7 @@ define([], function(){
 
 	return {
 		todoItemFullView: null,
+		didRoute: false,
 		filterParam: '',
 		keys: {
 		  ENTER: 13,

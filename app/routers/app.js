@@ -9,6 +9,12 @@ define(['jquery', 'underscore', 'backbone', 'common', 'views/app', 'views/todoIt
 	    '*filter': 'applyFilter'
 	  },
 	  initialize: function(){
+	  	this.on('route', function(){	  		
+	  	})
+	  	$(window).on('hashchange', this.windowHashChangeHandler)
+	  },
+	  windowHashChangeHandler: function(){
+	  	Common.didRoute = true;
 	  },
 	  applyFilter: function(param){
 	    var param = param || '';
@@ -24,8 +30,12 @@ define(['jquery', 'underscore', 'backbone', 'common', 'views/app', 'views/todoIt
 	  showTodoItem: function(id){
 	  	var model = AppView.todos.find(function(item){return item.cid == id});
 	  	var view = new TodoItemView({model: model});
+	  	
 	  	view.render();
-	  	view.show();
+	  	
+	  	setTimeout(function(){
+	  		view.show();
+	  	}, 10)
 
 	  	Common.todoItemFullView = view;
 	  }

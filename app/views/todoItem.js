@@ -33,11 +33,14 @@ define([
 	  	return this;
 	  	
 	  },
-	  show: function(){
-	  	this.$el.addClass('show');
+	  show: function(){	  	
+  		this.$el.addClass('show');
 	  },
 	  backToList: function(){
-	  	Backbone.history.navigate(Common.filterParam, {trigger: true});
+	  	if (Common.didRoute)
+	  		window.history.back();
+	  	else 
+	  		Backbone.history.navigate('/', {trigger: true});
 	  }
 
 	})
