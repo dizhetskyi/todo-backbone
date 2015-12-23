@@ -1,9 +1,4 @@
-'use strict';
 
-var keys = {
-  ENTER: 13,
-  ESC: 27
-};
 
 window.TodoItem = Backbone.Model.extend({
   defaults: function(){
@@ -162,8 +157,6 @@ window.TodoApp = Backbone.View.extend({
     var done = this.todos.done().length;
     var left = this.todos.left().length;
 
-    this.$toggleAllInput.prop('checked', !left);
-
     if (this.todos.length){
       this.$main.show();
       this.$footer.show();
@@ -178,6 +171,8 @@ window.TodoApp = Backbone.View.extend({
       this.$footer.hide();      
     }
 
+    this.$toggleAllInput.prop('checked', !left);
+
     this.$filterLinks = this.$('.filters a');
     
   },
@@ -186,28 +181,25 @@ window.TodoApp = Backbone.View.extend({
     if (e.keyCode == keys.ENTER){
       var trimmedVal = this.$newTodoInput.val().trim();
       if (!trimmedVal) return;
+
       var model = new TodoItem({
         title: this.$newTodoInput.val()
       })
       this.todos.add(model);
       model.save();
+
       this.$newTodoInput.val('');
     }
   },
   toggleAll: function(){
     var checked = this.$toggleAllInput.prop('checked');
-
-    this.todos.each(function(todoItem){
-      todoItem.save({done: checked});
-    })
+    _.invoke(this.todos.models, 'save', {done: checked})
   },
   clearCompleted: function(){
     _.invoke(this.todos.done(), 'destroy');
   }
 
 })
-
-var app = new TodoApp();
 
 window.Router = Backbone.Router.extend({
   routes: {
@@ -220,6 +212,8 @@ window.Router = Backbone.Router.extend({
     app.trigger('filterAll');
   }
 })
+
+var app = new TodoApp();
 
 new Router();
 Backbone.history.start();
