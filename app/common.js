@@ -3,6 +3,7 @@
 define([], function(){
 
 	return {
+		todoItemFullView: null,
 		filterParam: '',
 		keys: {
 		  ENTER: 13,

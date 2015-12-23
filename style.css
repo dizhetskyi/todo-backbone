@@ -199,7 +199,7 @@ label[for='toggle-all'] {
 .todo-list li label {
   white-space: pre;
   word-break: break-word;
-  padding: 15px 60px 15px 15px;
+  padding: 15px 90px 15px 15px;
   margin-left: 45px;
   display: block;
   line-height: 1.2;
@@ -226,15 +226,36 @@ label[for='toggle-all'] {
   transition: color 0.2s ease-out;
 }
 
+.todo-list li .preview {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 50px;
+  bottom: 0;
+  height: 40px;
+  margin: auto 0;
+  font-size: 16px;
+  color: #33A942;
+  margin-bottom: 11px;
+  transition: color 0.2s ease-out;
+  cursor: pointer;
+  line-height: 36px;
+}
+
 .todo-list li .destroy:hover {
   color: #af5b5e;
+}
+
+.todo-list li .preview:hover {
+  color: #2ADE41;
 }
 
 .todo-list li .destroy:after {
   content: '×';
 }
 
-.todo-list li:hover .destroy {
+.todo-list li:hover .destroy,
+.todo-list li:hover .preview {
   display: block;
 }
 
@@ -375,4 +396,105 @@ html .clear-completed:active {
   .filters {
     bottom: 10px;
   }
+}
+
+.todo-item-full {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  left: -9999px;
+  top: -9999px;
+}
+.todo-item-full.show {
+  top: 0;
+  left: 0;
+}
+
+.todo-item-full .backdrop {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.8);
+  opacity: 0;
+  transition: opacity .1s ease;
+}
+
+.todo-item-full.show .backdrop {
+  opacity: 1;
+}
+
+.todo-item-full .inner {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 400px;
+  min-height: 100px;
+  padding: 20px;
+  background: #fff;
+  opacity: 0;
+  transition: opacity: .3s ease, margin .2s ease;
+  margin-top: -30px;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.todo-item-full .inner ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.todo-item-full .inner .label {
+  color: #aaa;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.todo-item-full.show .inner {
+  opacity: 1;
+  margin-top: -0px;
+  text-align: center;
+}
+
+.todo-item-full .inner .title {
+  margin-bottom: 15px;
+}
+.todo-item-full .inner .title .value {  
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.todo-item-full .inner .status {
+  
+}
+
+.todo-item-full .inner .status .value {
+  display: inline-block;
+  padding: 5px 15px;
+}
+
+.todo-item-full .inner .status-done {
+  background: green;
+  color: #fff;
+}
+.todo-item-full .inner .status-active {
+  background: yellow;
+  color: #000;
+}
+
+.todo-item-full .inner .description {
+  padding-top: 10px;
+}
+.todo-item-full .inner .description .label {
+  margin-top: 5px;
+}
+
+p {
+  margin: 0;
 }

@@ -1,5 +1,21 @@
-define(['jquery', 'underscore', 'backbone', 'common', 'collections/todos', 'models/todo', 'views/todoItem', 'text!templates/todosFooter.html'], 
-function($, _, Backbone, Common, TodosCollection, TodoItem, TodoItemView, TodosFooterTemplate){
+define([
+		'jquery', 
+		'underscore', 
+		'backbone', 
+		'common', 
+		'collections/todos', 
+		'models/todo', 
+		'views/todoListItem', 
+		'text!templates/todosFooter.html'
+	], 
+	function(
+		$, _, Backbone, 
+		Common, 
+		TodosCollection, 
+		TodoListItem, 
+		TodoListItemView, 
+		TodosFooterTemplate
+		){
 	
 	'use strict';
 
@@ -46,7 +62,7 @@ function($, _, Backbone, Common, TodosCollection, TodoItem, TodoItemView, TodosF
 	      .addClass('selected');
 	  },
 	  addOne: function(model){    
-	    var view = new TodoItemView({model: model});
+	    var view = new TodoListItemView({model: model});
 	    this.$list.append(view.render().$el);
 	  },
 	  fill: function(collection){
@@ -83,10 +99,7 @@ function($, _, Backbone, Common, TodosCollection, TodoItem, TodoItemView, TodosF
 	      var trimmedVal = this.$newTodoInput.val().trim();
 	      if (!trimmedVal) return;
 
-	      var model = new TodoItem({
-	        title: this.$newTodoInput.val()
-	      })
-	      this.todos.add(model);
+	      var model = this.todos.add({ title: this.$newTodoInput.val() });	      
 	      model.save();
 
 	      this.$newTodoInput.val('');

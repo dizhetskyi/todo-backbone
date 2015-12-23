@@ -6,7 +6,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
     defaults: function(){
       return {
         title: 'new todo',
-        done: false
+        done: false,
+        description: '<p>Full description here</p><p>And another paragraph</p>'
       }
     },
     toggle: function(){

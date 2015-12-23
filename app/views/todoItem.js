@@ -1,81 +1,47 @@
-define(['jquery', 'underscore', 'backbone', 'common', 'text!templates/todoItem.html'], function($, _, Backbone, Common, TodoItemTemplate){
+define([
+		'jquery', 
+		'underscore', 
+		'backbone', 
+		'common',
+		'text!templates/todoItem.html'
+	], 
+	function(
+		$, _, Backbone, 
+		Common,
+		TodoItemTemplate
+		){
+	
+	'use strict';
 
-  'use strict';
+	var TodoItem = Backbone.View.extend({
+	  tagName: 'div',
+	  className: 'todo-item-full',
+	  template: _.template(TodoItemTemplate),
+	  events: {
+	  	'click .backdrop': 'backToList'
+	  },
+	  initialize: function(){
 
-  var TodoItemView = Backbone.View.extend({
-    tagName: 'li',
-    template: _.template(TodoItemTemplate),
-    initialize: function(){
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.remove);
-      this.listenTo(this.model, 'filterOne', this.toggleVisibility);
-    },
-    events: {
-      'change input.toggle': 'toggle',
-      'click button.destroy': 'delete',
-      'dblclick label': 'startEdit',
-      'blur input.edit': 'cancelEdit',
-      'keydown input.edit': 'submitEdit',
-    },
-    render: function(){
-      this.$el.html(this.template(this.model.attributes));
+	  },
+	  render: function(){
 
-      this.$editInput = this.$('input.edit');
+	  	var content = this.template(this.model.attributes);
+	  	this.$el.html(content);
 
-      this.$el.toggleClass('completed', this.model.get('done'))
+	  	$('body').append(this.$el);
 
-      this.toggleVisibility();
+	  	return this;
+	  	
+	  },
+	  show: function(){
+	  	this.$el.addClass('show');
+	  },
+	  backToList: function(){
+	  	Backbone.history.navigate(Common.filterParam, {trigger: true});
+	  }
 
-      return this;
-    },
+	})
 
-    toggle: function(){
-      this.model.toggle();
-    },  
-    delete: function(){
-      this.model.destroy();
-    },
-    startEdit: function(){
+	return TodoItem;
 
-      this.$el.addClass('editing');
-
-      this.$editInput.focus();
-      this.$editInput.val(this.$editInput.val());
-    },
-    cancelEdit: function(){
-      if (!this.$el.hasClass('editing')) return;
-
-      this.$el.removeClass('editing');
-
-      this.$editInput.val(this.model.get('title')); 
-    },
-    submitEdit: function(e){    
-      if (e.keyCode == Common.keys.ENTER){
-        var trimmedVal = this.$editInput.val().trim();
-        
-        if (!trimmedVal) return;
-
-        this.model.save({title: trimmedVal});
-
-        this.cancelEdit();
-      }
-    },
-    toggleVisibility: function(){   
-      this.$el.toggleClass('hidden', !this.isVisible());
-    },
-    isVisible: function(){
-
-      if (Common.filterParam == 'active')
-        return !this.model.get('done');
-
-      if (Common.filterParam == 'completed')
-        return this.model.get('done');
-
-      return true;
-    }
-
-  })
-
-return TodoItemView;
-
-})
+});

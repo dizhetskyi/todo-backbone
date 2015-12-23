@@ -1,6 +1,23 @@
-<div class="view">
-	<input class="toggle" type="checkbox" <%= done ? 'checked' : '' %>>
-	<label><%- title %></label>
-	<button class="destroy"></button>
+<a class="backdrop"></div>
+<div class="inner">
+	<ul>
+		<li class="title">
+			<div class="value">
+				<%= title %>
+			</div>
+			<div class="label">Title</div>
+		</li>
+		<li class="status">
+			<div class="value status-<%= done ? 'done' : 'active' %>">
+				<%= done ? 'Done' : 'Active' %>
+			</div>
+			<div class="label">Status</div>
+		</li>
+		<li class="description">
+			<div class="value">
+				<%= description %>
+			</div>
+			<div class="label">Description</div>
+		</li>
+	</ul>
 </div>
-<input class="edit" value="<%- title %>">
